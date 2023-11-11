@@ -55,5 +55,29 @@
       });
     });
   </script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyAO0Hn6VZozydaZXy2191vyc6UKYjGR_zc",
+      authDomain: "beatbose-web.firebaseapp.com",
+      projectId: "beatbose-web",
+      storageBucket: "beatbose-web.appspot.com",
+      messagingSenderId: "901373437681",
+      appId: "1:901373437681:web:45439d0c14ec63bbd3ab50",
+      measurementId: "G-1JNJGX81JB"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
 </body>
 </html>

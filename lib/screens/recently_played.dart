@@ -15,6 +15,8 @@ class PlayNowScreen extends StatefulWidget {
 }
 
 class _PlayNowScreenState extends State<PlayNowScreen> {
+
+  final ValueNotifier<List<SongAdapter>> refreshPage = ValueNotifier([]);
   final RecentlyPlayed _recentlyPlayed = RecentlyPlayed();
   // final MostlyPlayed _mostlyPlayed = MostlyPlayed();
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -24,6 +26,8 @@ class _PlayNowScreenState extends State<PlayNowScreen> {
   List playListKey = [];
 
   final _box = InstanceBox.getInstance();
+
+
 
   getPlayList() {
     playListKey = _box.keys.toList();
@@ -92,9 +96,15 @@ class _PlayNowScreenState extends State<PlayNowScreen> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                List<SongAdapter>? recentlyPlayedSongs = snapshot.data;
+                
 
-                return ListView(
+                return 
+                ValueListenableBuilder(
+                  
+                  valueListenable: refreshPage,
+                 builder: ((context,List<SongAdapter>? recentlyPlayedSongs, child){
+                  List<SongAdapter>? recentlyPlayedSongs = snapshot.data ;
+                  return   ListView(
                   scrollDirection: Axis.vertical,
                   children: [
                     Padding(
@@ -223,7 +233,11 @@ class _PlayNowScreenState extends State<PlayNowScreen> {
                       ),
                     ),
                   ],
-                );
+                )
+                  ;
+                 }));
+                
+
               }
             },
           ),

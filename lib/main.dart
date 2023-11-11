@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
 const hiveMusic = 'songlibrary_box';
@@ -54,6 +55,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
 
+  final Future<FirebaseApp> _initialization =Firebase.initializeApp();
+
   @override
   void initState() {
     super.initState();
@@ -80,7 +83,21 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: Style.themeData(themeChangeProvider.darkTheme, context),
-            home: const SplashScreen(),
+            home: FutureBuilder(
+              future: _initialization,
+              builder: (context, snapshot){
+                if(snapshot.hasError){
+                  print("error");
+                }
+
+                if(snapshot.connectionState ==ConnectionState.done){
+                  return SplashScreen();
+                }
+                return CircularProgressIndicator();
+              },
+              
+              
+              ),
            
           );
         },

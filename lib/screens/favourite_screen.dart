@@ -80,35 +80,43 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     });
   }
 
-  toggleFav(SongAdapter song) async {
-    final box = InstanceBox.getInstance();
-    final List<SongAdapter> likedSongs =
-        box.get('likedSongs').toList().cast<SongAdapter>();
-    if (likedSongs.contains(song)) {
-      likedSongs.remove(song);
-      print("song removed $song");
-    }
-    //  else {
-    //   likedSongs.add(song);
-    // }
-    await box.put('likedSongs', likedSongs);
-    getFavSongs();
-  }
+  // toggleFav(SongAdapter song) async {
+  //   final box = InstanceBox.getInstance();
+  //   final List<SongAdapter> likedSongs =
+  //       box.get('likedSongs').toList().cast<SongAdapter>();
+  //   if (likedSongs.contains(song)) {
+  //     likedSongs.remove(song);
+  //     favList.remove(song);
+
+  //     print("song removed $song");
+  //   }
+  //   //  else {
+  //   //   likedSongs.add(song);
+  //   // }
+  //   await box.put('likedSongs', likedSongs);
+  //   getFavSongs();
+  // }
 
   deleteFavList() {
     _box.delete('likedSongs');
   }
 
   deleteSong(SongAdapter song) async {
-    await toggleFav(song);
-    getFavSongs();
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => FavouriteScreen(
-                  favouriteList: const [],
-                  name: widget.name,
-                )));
+
+      setState(() {
+        favList.remove(song);
+        
+      });
+    // await toggleFav(song);
+
+  
+    // Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => FavouriteScreen(
+    //               favouriteList: const [],
+    //               name: widget.name,
+    //             )));
   }
 
   

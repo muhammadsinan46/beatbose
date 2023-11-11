@@ -65,12 +65,12 @@ class _NowPlayingPanelScreenState extends State<NowPlayingPanelScreen>
   void _init() {
     audioPlayer.positionStream.listen((position) {
       if (mounted) {
-        setState(() {
+       // setState(() {
           this.position = position;
 
           final currentSong = getplaySong();
           recentlyplayedList.addToRecentlyPlayed(currentSong!);
-        });
+        //});
       }
     });
     audioPlayer.durationStream.listen((duration) {
@@ -283,7 +283,11 @@ class _NowPlayingPanelScreenState extends State<NowPlayingPanelScreen>
     return Scaffold(
       // backgroundColor: Colors.transparent,
       appBar: AppBar(
-        leading: const BackButton(
+        leading:  BackButton(
+
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
             // color: Colors.black,
             ),
         // backgroundColor: Colors.white,

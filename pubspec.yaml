@@ -41,6 +41,7 @@ dependencies:
   path_provider:
   audio_service: 
   permission_handler: ^11.0.1
+  permission_handler_web: ^0.0.2
   on_audio_query: ^2.9.0
   flutter_slidable: ^3.0.0
   google_fonts: ^6.1.0
@@ -49,12 +50,16 @@ dependencies:
   shared_preferences: ^2.2.2
   font_awesome_flutter: ^10.6.0
   text_scroll: ^0.2.0
+  file_picker:
+  firebase_core: ^2.21.0
 
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: 
+  flutter_launcher_icons: ^0.13.1
   build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -63,6 +68,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  change_app_package_name: ^1.1.0
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
