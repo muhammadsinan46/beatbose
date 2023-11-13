@@ -65,12 +65,12 @@ class _NowPlayingPanelScreenState extends State<NowPlayingPanelScreen>
   void _init() {
     audioPlayer.positionStream.listen((position) {
       if (mounted) {
-       // setState(() {
+       setState(() {
           this.position = position;
 
           final currentSong = getplaySong();
           recentlyplayedList.addToRecentlyPlayed(currentSong!);
-        //});
+      });
       }
     });
     audioPlayer.durationStream.listen((duration) {

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:beatboseapp/theme/theme_provider.dart';
 import 'package:beatboseapp/widgets/about_page.dart';
+import 'package:beatboseapp/widgets/contact_support.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -69,7 +70,9 @@ throw Exception('could not launch$_privacyuri');
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.arrow_forward_ios),
-                onPressed: () {},
+                onPressed: () {
+              
+                },
               ),
             ),
           ),
@@ -137,7 +140,11 @@ throw Exception('could not launch$_privacyuri');
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.arrow_forward_ios),
-                onPressed: () {},
+                onPressed: () {
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return const ContactSupport();
+                }));
+                },
               ),
             ),
           ),

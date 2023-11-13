@@ -15,7 +15,6 @@ class PlayNowScreen extends StatefulWidget {
 }
 
 class _PlayNowScreenState extends State<PlayNowScreen> {
-
   final ValueNotifier<List<SongAdapter>> refreshPage = ValueNotifier([]);
   final RecentlyPlayed _recentlyPlayed = RecentlyPlayed();
   // final MostlyPlayed _mostlyPlayed = MostlyPlayed();
@@ -26,8 +25,6 @@ class _PlayNowScreenState extends State<PlayNowScreen> {
   List playListKey = [];
 
   final _box = InstanceBox.getInstance();
-
-
 
   getPlayList() {
     playListKey = _box.keys.toList();
@@ -46,12 +43,12 @@ class _PlayNowScreenState extends State<PlayNowScreen> {
             RecentlyPlayed.maxrecentSongs, recentlyPlayedSongs.length);
       }
 
-      setState(() {
+      setState(() async {
         recentlyPlayedSongs = recentlyPlayedSongs;
-      });
 
-      await _recentlyPlayed.updateRecentlyPlayed(recentlyPlayedSongs);
-      await loadRecentlyPlayedSongs();
+        await _recentlyPlayed.updateRecentlyPlayed(recentlyPlayedSongs);
+        await loadRecentlyPlayedSongs();
+      });
     } on Exception {
       print("Error parsing song");
     }
@@ -96,148 +93,148 @@ class _PlayNowScreenState extends State<PlayNowScreen> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                
-
-                return 
-                ValueListenableBuilder(
-                  
-                  valueListenable: refreshPage,
-                 builder: ((context,List<SongAdapter>? recentlyPlayedSongs, child){
-                  List<SongAdapter>? recentlyPlayedSongs = snapshot.data ;
-                  return   ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          width: double.infinity,
-                          child: recentlyPlayedSongs!.isEmpty
-                              ? const Center(
-                                  child: Text("No Recent Songs available"),
-                                )
-                              : ListView.separated(
-                                  separatorBuilder: (context, index) =>
-                                      const Divider(),
-                                  itemCount: recentlyPlayedSongs.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {});
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                NowPlayingPanelScreen(
-                                              songs: recentlyPlayedSongs[
-                                                  index], // Use recentlyPlayedSongs
-                                              allSongs:
-                                                  recentlyPlayedSongs, // Pass recentlyPlayedSongs for allSongs
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: ListTile(
-                                        leading: SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: Image.asset(
-                                            'assets/images/images2.jpg',
-                                            fit: BoxFit.cover,
-                                            alignment: Alignment.center,
-                                          ),
-                                        ),
-                                        title: TextScroll(
-                                          // mode:TextScrollMode.bouncing,
-                                          recentlyPlayedSongs[index].song ??
-                                              'Track $index',
-                                          intervalSpaces: 10,
-                                          velocity: const Velocity(
-                                              pixelsPerSecond: Offset(50, 0)),
-                                          //  delayBefore:const  Duration(milliseconds: 50),
-                                          style: const TextStyle(fontSize: 18),
-                                        ),
-                                        subtitle: Text(
-                                          recentlyPlayedSongs[index].artist ??
-                                              'No artist',
-                                        ),
-                                        trailing: PopupMenuButton(
-                                          itemBuilder: (BuildContext context) {
-                                            return [
-                                              PopupMenuItem(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NowPlayingPanelScreen(
-                                                        songs:
-                                                            recentlyPlayedSongs[
-                                                                index],
-                                                        allSongs:
-                                                            recentlyPlayedSongs,
-                                                      ),
+                return ValueListenableBuilder(
+                    valueListenable: refreshPage,
+                    builder: ((context, List<SongAdapter>? recentlyPlayedSongs,
+                        child) {
+                      List<SongAdapter>? recentlyPlayedSongs = snapshot.data;
+                      return ListView(
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height,
+                                width: double.infinity,
+                                child: recentlyPlayedSongs!.isEmpty
+                                    ? const Center(
+                                        child:
+                                            Text("No Recent Songs available"),
+                                      )
+                                    : ListView.separated(
+                                        separatorBuilder: (context, index) =>
+                                            const Divider(),
+                                        itemCount: recentlyPlayedSongs.length,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {
+                                              setState(() {});
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      NowPlayingPanelScreen(
+                                                    songs: recentlyPlayedSongs[
+                                                        index], // Use recentlyPlayedSongs
+                                                    allSongs:
+                                                        recentlyPlayedSongs, // Pass recentlyPlayedSongs for allSongs
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: ListTile(
+                                              leading: SizedBox(
+                                                height: 50,
+                                                width: 50,
+                                                child: Image.asset(
+                                                  'assets/images/images2.jpg',
+                                                  fit: BoxFit.cover,
+                                                  alignment: Alignment.center,
+                                                ),
+                                              ),
+                                              title: TextScroll(
+                                                // mode:TextScrollMode.bouncing,
+                                                recentlyPlayedSongs[index]
+                                                        .song ??
+                                                    'Track $index',
+                                                intervalSpaces: 10,
+                                                velocity: const Velocity(
+                                                    pixelsPerSecond:
+                                                        Offset(50, 0)),
+                                                //  delayBefore:const  Duration(milliseconds: 50),
+                                                style: const TextStyle(
+                                                    fontSize: 18),
+                                              ),
+                                              subtitle: Text(
+                                                recentlyPlayedSongs[index]
+                                                        .artist ??
+                                                    'No artist',
+                                              ),
+                                              trailing: PopupMenuButton(
+                                                itemBuilder:
+                                                    (BuildContext context) {
+                                                  return [
+                                                    PopupMenuItem(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                NowPlayingPanelScreen(
+                                                              songs:
+                                                                  recentlyPlayedSongs[
+                                                                      index],
+                                                              allSongs:
+                                                                  recentlyPlayedSongs,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: const Text("Play"),
                                                     ),
-                                                  );
+                                                    PopupMenuItem(
+                                                      onTap: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    AlertDialog(
+                                                                      title: const Text(
+                                                                          "Select Playlist"),
+                                                                      content: SizedBox(
+                                                                          height: 100,
+                                                                          width: double.maxFinite,
+                                                                          child: ListView.separated(
+                                                                              separatorBuilder: (context, index) => const Divider(),
+                                                                              itemCount: playListKey.length,
+                                                                              itemBuilder: (context, index) {
+                                                                                return InkWell(
+                                                                                    onTap: () {},
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.all(8.0),
+                                                                                      child: Text(
+                                                                                        playListKey[index],
+                                                                                        style: const TextStyle(fontSize: 15),
+                                                                                      ),
+                                                                                    ));
+                                                                              })),
+                                                                    ));
+                                                      },
+                                                      child: const Text(
+                                                          "Add to Playlist"),
+                                                    ),
+                                                    const PopupMenuItem(
+                                                      value: '/data',
+                                                      child: Text("Delete"),
+                                                    ),
+                                                    const PopupMenuItem(
+                                                      value: '/data',
+                                                      child: Text("Share"),
+                                                    ),
+                                                  ];
                                                 },
-                                                child: const Text("Play"),
                                               ),
-                                              PopupMenuItem(
-                                                onTap: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (context) =>
-                                                              AlertDialog(
-                                                                title: const Text(
-                                                                    "Select Playlist"),
-                                                                content: SizedBox(
-                                                                    height: 100,
-                                                                    width: double.maxFinite,
-                                                                    child: ListView.separated(
-                                                                        separatorBuilder: (context, index) => const Divider(),
-                                                                        itemCount: playListKey.length,
-                                                                        itemBuilder: (context, index) {
-                                                                          return InkWell(
-                                                                              onTap: () {},
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.all(8.0),
-                                                                                child: Text(
-                                                                                  playListKey[index],
-                                                                                  style: const TextStyle(fontSize: 15),
-                                                                                ),
-                                                                              ));
-                                                                        })),
-                                                              ));
-                                                },
-                                                child: const Text(
-                                                    "Add to Playlist"),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: '/data',
-                                                child: Text("Delete"),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: '/data',
-                                                child: Text("Share"),
-                                              ),
-                                            ];
-                                          },
-                                        ),
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-                  ;
-                 }));
-                
-
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }));
               }
             },
           ),
